@@ -1,9 +1,9 @@
 package simple.server.resource;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -51,11 +51,11 @@ public class ListResource {
 	@POST
     @Path("{listName}")
 	public void addList(@PathParam("listName") String name) {
-	    if (dataMapper.contains(name)) {
+	    ToDoList list = new ToDoList(name, new ArrayList<ListItem>());
+	    boolean success = dataMapper.putList(name, list);
+	    if (!success) {
 	        throw new WebApplicationException(Response.status(Status.CONFLICT).entity("List " + name + " already exists").build());
 	    }
-	    ToDoList list = new ToDoList(name, new ArrayList<ListItem>());
-	    dataMapper.putList(name, list);
 	}
 	
 	/**
@@ -96,19 +96,16 @@ public class ListResource {
 	 */
 	private static class MockDatabase {
 
-	    private static Map<String, ToDoList> lists;
+	    private static ConcurrentMap<String, ToDoList> lists;
 
 	    static {
-	        lists = new HashMap<String, ToDoList>();
+	        lists = new ConcurrentHashMap<String, ToDoList>();
 	        lists.put("groceries",ListFactory.buildListWith("groceries", "eggs", "sugar", "milk","bread","celery","cereal"));
 	        lists.put("Build a birdhouse", ListFactory.buildListWith("Build a birdhouse", "Research designs","Finalize design choice","Draw up materials list","Buy materials from hardware store","Build it!"));
 	        lists.put("Weekend", ListFactory.buildListWith("Weekend", "Clean house", "Grocery shopping", "Laundry", "Cook lunches for the week","Football"));
 	    }
-	    public boolean contains(String name) {
-	        return lists.containsKey(name);
-	    }
-	    public void putList(String name, ToDoList list) {
-	        lists.put(name, list);
+	    public boolean putList(String name, ToDoList list) {
+	         return lists.putIfAbsent(name, list) == null;
 	    }
 	    public ToDoList getList(String name) {
 	        return lists.get(name);
