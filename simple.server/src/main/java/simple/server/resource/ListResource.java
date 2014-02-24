@@ -5,9 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -54,6 +56,29 @@ public class ListResource {
 	    }
 	    ToDoList list = new ToDoList(name, new ArrayList<ListItem>());
 	    dataMapper.putList(name, list);
+	}
+	
+	/**
+	 * Update the items in a list.  Given a JSON payload that is a list of item ids, update the list so that it contains the items with those ids, in the given order. 
+	 * @param idsInOrder A list of long ids, auto-constructed from the payload
+	 * @param name The name of the list
+	 * @return Returns the updated list
+	 */
+	@PUT
+	@Consumes("application/json")
+	@Path("{listName}")
+	public ToDoList updateList(List<Long> idsInOrder, @PathParam("listName") String name) {
+	    ToDoList list = dataMapper.getList(name);
+	    if (list == null) {
+	        throw new WebApplicationException(Response.status(Status.NOT_FOUND).entity("List not found: " + name).build());
+	    }
+	    List<ListItem> itemsInNewOrder = new ArrayList<ListItem>();
+	    ItemResource ir = new ItemResource();
+	    for (Long id : idsInOrder) {
+            itemsInNewOrder.add(ir.getItem(name, id));
+        }
+	    list.setItems(itemsInNewOrder);
+	    return list;
 	}
 	
 	@DELETE
