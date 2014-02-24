@@ -34,7 +34,6 @@ public class GuiceConfig extends GuiceServletContextListener {
 				Map<String, String> initParams = new HashMap<String, String>();
 				initParams.put("com.sun.jersey.config.feature.Trace", "true");
 				initParams.put("com.sun.jersey.api.json.POJOMappingFeature", "true");
-				initParams.put("com.sun.jersey.config.property.packages","com.wordnik.swagger.jersey.listing");
 				serve("*").with(GuiceContainer.class, initParams);
 			};
 		});

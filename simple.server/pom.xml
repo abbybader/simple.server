@@ -6,6 +6,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>Simple backend</name>
     <properties>
+        <dist.dir>target/dist</dist.dir>
         <jetty-version>8.0.0.M3</jetty-version>
         <guice-version>3.0</guice-version>
         <jackson-version>1.9.6</jackson-version>
@@ -68,4 +69,54 @@
             <version>${guice-version}</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>simple.server.SimpleServer</mainClass>
+                            <classpathPrefix>lib/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                    <outputDirectory>${dist.dir}</outputDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeScope>runtime</includeScope>
+                            <outputDirectory>${dist.dir}/lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.enunciate</groupId>
+                <artifactId>maven-enunciate-plugin</artifactId>
+                <version>1.28</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>docs</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- the directory where to put the docs -->
+                    <docsDir>${dist.dir}/docs</docsDir>
+                    <configFile>enunciate.xml</configFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
