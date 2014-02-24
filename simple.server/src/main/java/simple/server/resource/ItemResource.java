@@ -44,7 +44,7 @@ public class ItemResource {
 	 * @param id the id of the list item
 	 * @param done the boolean "accomplished or not" status
 	 * @param title the string title of the task
-	 * @return the updated task
+	 * @return the updated list item
 	 */
 	@PUT
 	public ListItem updateItem(@PathParam(LIST_NAME) String name, @QueryParam("id") long id, @QueryParam("done") Boolean done, @QueryParam("title") String title) {
