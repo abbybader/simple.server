@@ -13,7 +13,7 @@ public class SimpleServer {
 
     /**
      * Simple backend for a To Do app
-     * @param args { httpPort, hostName } 
+     * @param args { httpPort } 
      * @throws Exception
      */
 	public static void main(String[] args) throws Exception {
