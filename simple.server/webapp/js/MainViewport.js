@@ -44,7 +44,7 @@ Ext.onReady(function() {
         border : true,
         items : [toolbar]
       };
-      
+
       var contentPanel = new Ext.panel.Panel({
             split : true,
             frame : false,
