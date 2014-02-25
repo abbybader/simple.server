@@ -36,7 +36,6 @@ Ext.onReady(function() {
           }));
 
       var toolbarPanel = {
-        id : 'toolbar-panel',
         region : 'north',
         layout : 'card',
         height : 30,
@@ -53,7 +52,6 @@ Ext.onReady(function() {
           });
 
       Ext.create('Ext.container.Viewport', {
-            id : 'mainViewport',
             layout : 'border',
             items : [toolbarPanel, mainPanel],
             renderTo : Ext.getBody()
