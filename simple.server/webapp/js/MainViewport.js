@@ -27,8 +27,6 @@ Ext.onReady(function() {
                 }, {
                   xtype : 'tbfill'
                 }, {
-                  xtype : 'tbseparator'
-                }, {
                   text : 'Help',
                   arrowCls : '',
                   menu : helpMenu
