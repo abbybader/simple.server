@@ -6,6 +6,7 @@ import javax.servlet.DispatcherType;
 
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -29,10 +30,17 @@ public class SimpleServer {
 		context.setContextPath("/");
 
 		ResourceHandler resourceHandler = new ResourceHandler();
-		resourceHandler.setDirectoriesListed(true);
+		resourceHandler.setDirectoriesListed(false);
 		resourceHandler.setResourceBase("webapp");
+
+		ResourceHandler docsHandler = new ResourceHandler();
+		docsHandler.setDirectoriesListed(true);
+		docsHandler.setResourceBase("target/dist/docs");
+		ContextHandler docsContext = new ContextHandler("/docs");
+		docsContext.setHandler(docsHandler);
+
 		HandlerList handlers = new HandlerList();
-		handlers.setHandlers(new Handler[] { resourceHandler, context });
+		handlers.setHandlers(new Handler[] { resourceHandler, docsContext, context });
 		server.setHandler(handlers);
 
 		context.addEventListener(new GuiceConfig());
