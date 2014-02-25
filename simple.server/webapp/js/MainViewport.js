@@ -45,7 +45,7 @@ Ext.onReady(function() {
         items : [toolbar]
       };
 
-      var contentPanel = new Ext.panel.Panel({
+      var mainPanel = new Ext.panel.Panel({
             split : true,
             frame : false,
             region : 'center',
@@ -55,7 +55,7 @@ Ext.onReady(function() {
       Ext.create('Ext.container.Viewport', {
             id : 'mainViewport',
             layout : 'border',
-            items : [toolbarPanel, contentPanel],
+            items : [toolbarPanel, mainPanel],
             renderTo : Ext.getBody()
           });
 
