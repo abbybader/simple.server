@@ -13,6 +13,6 @@ Via command line:  1) Use maven to build the project.  2) Run the server using "
 
 The server will be accessible via http://localhost:{HTTP_PORT} (default is 1500)
 
-API DOCUMENTATION: After building the project using Maven, you may find the server's api documentation under simple.server/target/dist/docs
+API DOCUMENTATION: Provided that you have built the project using maven, you will be able to view the server's API docs at http://localhost:{PORT}/docs
 
-The server is designed to accommodate: Querying for all existing lists; Adding/Deleting/Retrieving lists; Adding/Deleting/Retrieving/Updating TO DO items within a list.
+The server is designed to accommodate: Querying for all existing lists; Adding/Deleting/Retrieving/Updating lists; Adding/Deleting/Retrieving/Updating TO DO items within a list.
