@@ -1,0 +1,20 @@
+UI requirements
+
+Use JS and Ext-JS to code a front-end for the "simple.server" to-do list app.  The web app must use the simple.server API.
+
+A user should be able to:
+
+ -See all of her lists in alphabetical order
+ -Expand and collapse lists
+ -Retitle a list
+ -Create a new list
+ -Delete a list
+ -Reorder items in the list (bonus points for drag and drop!)
+
+Within a list, a user should be able to:
+ -See all the items of the list
+ -See the status (done/not done) of each item
+ -Edit the title of an item
+ -Add a new item
+ -Delete an item
+ -Toggle the status of an item
