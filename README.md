@@ -16,3 +16,12 @@ The server will be accessible via http://localhost:{HTTP_PORT} (default is 1500)
 API DOCUMENTATION: Provided that you have built the project using maven, you will be able to view the server's API docs at http://localhost:{PORT}/docs
 
 The server is designed to accommodate: Querying for all existing lists; Adding/Deleting/Retrieving/Updating lists; Adding/Deleting/Retrieving/Updating TO DO items within a list.
+
+----
+
+**Note for Java 8 users**
+
+This project uses an [Enunciate](http://enunciate.codehaus.org) plugin to auto-build API docs when the maven builds the project.  Due to a core change in the Java 8 release (apt tool has been removed), the Enunciate plugin will fail.  Java 8 users may either:
+- Switch back to Java 7
+- Create a Maven profile that uses an older Java version, as explained (here)[https://jira.codehaus.org/browse/ENUNCIATE-701?focusedCommentId=345953&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-345953]
+- Disable the Enunciate plugin in the pom.xml file
