@@ -30,40 +30,17 @@ public class ListResource {
         dataMapper = new MockDatabase();
     }
 	
-	@GET
-	public List<String> getListNames() {
-		return dataMapper.getListNames();
+	//get all
+	
+	//get
+	public ToDoList getList(String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
-	@GET
-	@Path("{listName}")
-	public ToDoList getList(@PathParam("listName") String name) {
-		
-		ToDoList toDoList = dataMapper.getList(name);
-		if (toDoList == null) {
-			throw new WebApplicationException(Response.status(Status.NOT_FOUND).entity("List not found: " + name).build());
-		}
-		return toDoList;
-	}
+	//post
 	
-	@POST
-    @Path("{listName}")
-	public void addList(@PathParam("listName") String name) {
-	    if (dataMapper.contains(name)) {
-	        throw new WebApplicationException(Response.status(Status.CONFLICT).entity("List " + name + " already exists").build());
-	    }
-	    ToDoList list = new ToDoList(name, new ArrayList<ListItem>());
-	    dataMapper.putList(name, list);
-	}
-	
-	@DELETE
-    @Path("{listName}")
-	public void deleteList(@PathParam("listName") String name) {
-	    ToDoList removedList = dataMapper.deleteList(name);
-	    if (removedList == null) {
-            throw new WebApplicationException(Response.status(Status.NOT_FOUND).entity("Could not delete list " + name ).build());
-        }
-	}
+	//delete
 	
 	/**
 	 * Mock of an actual persistence layer.  In real life, this could be a service class talking to 
