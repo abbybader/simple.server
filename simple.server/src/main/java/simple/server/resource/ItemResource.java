@@ -25,10 +25,29 @@ public class ItemResource {
 	private static final String LIST_NAME = "listName";
 
 	//get
+	@GET
+	public ListItem getItem(@PathParam(LIST_NAME) String name, @QueryParam("id") long id) {
+		ToDoList list = new ListResource().getList(name);
+		List<ListItem> items = list.getItems();
+		for (ListItem listItem : items) {
+			if (listItem.getId() == id) {
+				return listItem;
+			}
+		}
+		throw new WebApplicationException(Response.status(Status.NOT_FOUND).entity("Could not item " + id + " in list " + name).build());
+	}
 	
 	//put
 	
+	
 	//post
+	@POST
+	public long addItem(@PathParam(LIST_NAME) String name, @FormParam("title") String title) {
+		ToDoList list = new ListResource().getList(name);
+		ListItem item = new ListItem(ListItem.counter++, title, false);
+		list.addItem(item);
+		return item.getId();
+	}
 	
 	//delete
 	

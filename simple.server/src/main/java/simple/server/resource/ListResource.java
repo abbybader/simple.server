@@ -31,11 +31,17 @@ public class ListResource {
     }
 	
 	//get all
+    @GET
+    public List<String> getLists() {
+    	return dataMapper.getListNames();
+    }
 	
 	//get
-	public ToDoList getList(String name) {
-		// TODO Auto-generated method stub
-		return null;
+    @GET
+    @Path("{listName}")
+	public ToDoList getList(@PathParam("listName") String name) {
+		ToDoList list = dataMapper.getList(name);
+		return list;
 	}
 	
 	//post
@@ -63,7 +69,11 @@ public class ListResource {
 	        lists.put(name, list);
 	    }
 	    public ToDoList getList(String name) {
-	        return lists.get(name);
+	        ToDoList list = lists.get(name);
+	        if (list == null) {
+	        	throw new WebApplicationException(Response.status(Status.NOT_FOUND).entity("Could not find list " + name).build());
+	        }
+			return list;
 	    }
 	    public ToDoList deleteList(String name) {
 	        return lists.remove(name);
